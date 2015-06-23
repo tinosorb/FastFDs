@@ -8,12 +8,14 @@
 
     <name>fastfds</name>
 
+<!--  
     <parent>
         <groupId>de.metanome.algorithms</groupId>
         <artifactId>algorithms</artifactId>
         <version>${metanome.version}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+-->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
