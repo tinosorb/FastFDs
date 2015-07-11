@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutorService;
 public class AgreeSetGenerator extends Algorithm_Group2_Modul {
 
     private boolean chooseAlternative1 = false;
-    private boolean chooseAlternative2 = true;
+    private boolean chooseAlternative2 = true; 
 
     public AgreeSetGenerator(int nrOfThreads) {
 
