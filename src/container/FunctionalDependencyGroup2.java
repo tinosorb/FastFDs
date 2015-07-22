@@ -1,4 +1,4 @@
-package de.metanome.algorithms.fastfds.fastfds_helper.modules.container;
+package container;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntArraySet;

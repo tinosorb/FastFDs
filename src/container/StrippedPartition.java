@@ -1,4 +1,4 @@
-package de.metanome.algorithms.fastfds.fastfds_helper.modules.container;
+package container;
 
 import it.unimi.dsi.fastutil.longs.LongList;
 import org.apache.lucene.util.OpenBitSet;

@@ -1,4 +1,4 @@
-package de.metanome.algorithms.fastfds.fastfds_helper.modules.container;
+package container;
 
 import de.metanome.algorithms.fastfds.fastfds_helper.util.BitSetUtil;
 
