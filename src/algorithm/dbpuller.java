@@ -84,7 +84,7 @@ public class dbpuller {
 
 		try {
 			connection = DriverManager.getConnection(
-					"jdbc:postgresql://127.0.0.1:5432/zhangshuopeng", "zhangshuopeng",
+					"jdbc:postgresql://127.0.0.1:5432/postgres", "postgres",
 					"");
  			connection.setAutoCommit(false);
  			st = connection.createStatement();
