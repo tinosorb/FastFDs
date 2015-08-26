@@ -3,5 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="F:/Github projects/FastFDs/src/postgresql-9.3-1103.jdbc41.jar"/>
+	<classpathentry kind="lib" path="src/fastutil-5.0.9.jar"/>
+	<classpathentry kind="lib" path="src/lucene-core-4.5.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
