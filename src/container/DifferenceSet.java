@@ -1,9 +1,10 @@
-package de.metanome.algorithms.fastfds.modules.container;
+package container;
 
-import de.metanome.algorithms.fastfds.fastfds_helper.modules.container.AgreeSet;
-import de.metanome.algorithms.fastfds.fastfds_helper.util.BitSetUtil;
+import container.AgreeSet;
 
 import org.apache.lucene.util.OpenBitSet;
+
+import algorithm.BitSetUtil;
 
 public class DifferenceSet extends AgreeSet {
 

@@ -1,6 +1,6 @@
 package container;
 
-import de.metanome.algorithms.fastfds.fastfds_helper.util.BitSetUtil;
+import algorithm.BitSetUtil;
 
 import org.apache.lucene.util.OpenBitSet;
 
