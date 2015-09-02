@@ -1,4 +1,4 @@
-package algorithm;
+//package algorithm;
 
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -79,6 +79,9 @@ public class test {
 			connection = DriverManager.getConnection(
 					"jdbc:postgresql://127.0.0.1:5432/postgres", "postgres",
 					"");
+//			connection = DriverManager.getConnection(
+//					"jdbc:postgresql://127.0.0.1:5432/postgres?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory", "postgres",
+//					"");
  			connection.setAutoCommit(false);
  			st = connection.createStatement();
 
