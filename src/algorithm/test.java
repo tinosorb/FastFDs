@@ -22,10 +22,10 @@ public class test {
 	private static Statement st;
 
 	
-	private static void init(String[] cmdinput){
+	private static void init(){
 
-		numberOfAttributes = Integer.parseInt(cmdinput[0]);
- 		table = cmdinput[1];
+		numberOfAttributes = 6;
+ 		table = "fastfd";
 		attrStr = new Vector<String>(0);
 //		primaryKey = 0;
 //		lattice = new Vector<Integer>(0);
@@ -77,7 +77,7 @@ public class test {
 
 		try {
 			connection = DriverManager.getConnection(
-					"jdbc:postgresql://127.0.0.1:5432/postgres", "postgres",
+					"jdbc:postgresql://localhost:5432/postgres", "postgres",
 					"");
 //			connection = DriverManager.getConnection(
 //					"jdbc:postgresql://127.0.0.1:5432/postgres?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory", "postgres",
@@ -203,9 +203,9 @@ public class test {
 	public static void main(String[] argv) {
   		long total = System.currentTimeMillis();
 
-		init(argv);
+		init();
 
-		get_diffset();
+//		get_diffset();
 		
 		System.out.println("total time: " + (System.currentTimeMillis() - total));
 		System.out.println("query_time: " + query_time);
