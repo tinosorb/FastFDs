@@ -146,7 +146,7 @@ public class test {
 					+ "UNION"
 					+ "SELECT id, 'f' AS Diff"
 					+ "FROM ("
-					+ "SELECT id, f1, f2 FROM joined"
+					+ "SELECT id, f1, f2 FROM joined" 
 					+ "WHERE f1 <> f2"
 					+ ") AS Diffs";
 					
