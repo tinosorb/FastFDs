@@ -102,9 +102,9 @@ public class test {
 //					+ table
 //					+ "';
 			
-			String add_id = "alter"
+			String add_id = "alter "
 					+ table
-					+ "add id SERIAL";
+					+ " add id SERIAL";
 			 
 			String inner_join = "CREATE VIEW joined AS"
 					+ "SELECT t1.a AS A1, t2.a AS A2, t1.b AS B1, t2.b AS B2, t1.c AS C1, t2.c AS C2, t1.d AS D1, t2.d AS D2,"
