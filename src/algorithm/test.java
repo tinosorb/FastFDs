@@ -160,30 +160,35 @@ public class test {
 			long start1 = System.currentTimeMillis();
 			Statement st1 = connection.createStatement();
 			st1.executeUpdate(add_id);
+			System.out.println(add_id);
 			System.out.println("ID column added");
 			query_time = query_time + (System.currentTimeMillis() - start1);
 			
 			long start2 = System.currentTimeMillis();
 			Statement st2 = connection.createStatement();
 			st2.executeUpdate(inner_join);
+			System.out.println(inner_join);
 			System.out.println("Joined view created");
 			query_time = query_time + (System.currentTimeMillis() - start2);
 			
 			long start3 = System.currentTimeMillis();
 			Statement st3 = connection.createStatement();
 			st3.executeUpdate(diff_set);
+			System.out.println(diff_set);
 			System.out.println("Differences spotted");
 			query_time = query_time + (System.currentTimeMillis() - start3);
 			
 			long start4 = System.currentTimeMillis();
 			Statement st4 = connection.createStatement();
 			st4.executeUpdate(diffset_output);
+			System.out.println(diffset_output);
 			System.out.println("Diffset view created");
 			query_time = query_time + (System.currentTimeMillis() - start4);
 			
 			long start5 = System.currentTimeMillis();
 			Statement st5 = connection.createStatement();
 			ResultSet rs = st5.executeQuery(receive_diffset);
+			System.out.println(receive_diffset);
 			query_time = query_time + (System.currentTimeMillis() - start5);
 			
 //			if(rs.next()){
@@ -195,6 +200,7 @@ public class test {
 //			}
 		} catch(SQLException e) {
 			System.out.println("Connection Failed! Check output console");
+			e.printStackTrace();
 			return;
 		}
 	}
