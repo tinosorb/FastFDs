@@ -186,13 +186,13 @@ public class test {
 			ResultSet rs = st5.executeQuery(receive_diffset);
 			query_time = query_time + (System.currentTimeMillis() - start5);
 			
-			if(rs.next()){
+//			if(rs.next()){
 			
-				Integer first = rs.getInt(1);
-			    String second = rs.getString(2);
+//				Integer first = rs.getInt(1);
+//			    String second = rs.getString(2);
 			    
 			    
-			}
+//			}
 		} catch(SQLException e) {
 			System.out.println("Connection Failed! Check output console");
 			return;
