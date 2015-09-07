@@ -22,7 +22,7 @@ public class test {
 	private static Statement st;
 
 	
-	private static void init(){
+	public static void init(){
 
 		numberOfAttributes = 6;
  		table = "fastfd";
@@ -205,7 +205,7 @@ public class test {
 
 		init();
 
-//		get_diffset();
+		get_diffset();
 		
 		System.out.println("total time: " + (System.currentTimeMillis() - total));
 		System.out.println("query_time: " + query_time);
