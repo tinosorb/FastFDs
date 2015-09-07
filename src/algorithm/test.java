@@ -102,7 +102,7 @@ public class test {
 //					+ table
 //					+ "';
 			
-			String add_id = "alter table"
+			String add_id = "alter"
 					+ table
 					+ "add id SERIAL";
 			 
