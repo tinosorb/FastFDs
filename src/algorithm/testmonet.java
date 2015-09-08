@@ -38,8 +38,8 @@ public class testmonet {
 
 		try {
  
-			Class.forName("org.postgresql.Driver");
- 
+			Class.forName("nl.cwi.monetdb.jdbc.MonetDriver");
+			
 		} catch (ClassNotFoundException e) {
  
 			System.out.println("Where is your PostgreSQL JDBC Driver? "
@@ -51,8 +51,7 @@ public class testmonet {
 
 		try {
 			connection = DriverManager.getConnection(
-					"jdbc:postgresql://localhost:5432/postgres", "postgres",
-					"");
+					"jdbc:monetdb://localhost/tests", "monetdb", "monetdb");
 //			connection = DriverManager.getConnection(
 //					"jdbc:postgresql://127.0.0.1:5432/postgres?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory", "postgres",
 //					"");
