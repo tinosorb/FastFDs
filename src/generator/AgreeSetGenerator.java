@@ -1,8 +1,8 @@
-package de.metanome.algorithms.fastfds.fastfds_helper.modules;
+package generator;
 
 import de.metanome.algorithm_integration.AlgorithmExecutionException;
-import de.metanome.algorithms.fastfds.fastfds_helper.modules.container.AgreeSet;
-import de.metanome.algorithms.fastfds.fastfds_helper.modules.container.StrippedPartition;
+import container.AgreeSet;
+import container.StrippedPartition;
 import it.unimi.dsi.fastutil.longs.*;
 
 import java.util.*;
@@ -19,7 +19,7 @@ public class AgreeSetGenerator extends Algorithm_Group2_Modul {
         super(nrOfThreads, "AgreeSetGen");
     }
 
-    public List<AgreeSet> execute(List<StrippedPartition> partitions) throws AlgorithmExecutionException {
+    public List<AgreeSet> execute(List<StrippedPartition> partitions) {
 
         if (this.timeMesurement) {
             this.startTime();

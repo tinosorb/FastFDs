@@ -13,7 +13,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.ListIterator;
 
-public class test {
+public class testmonet {
 	private static Connection connection;
 	private static Integer numberOfAttributes;
 	private static String table;
