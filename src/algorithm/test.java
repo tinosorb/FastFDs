@@ -22,10 +22,10 @@ public class test {
 	private static Statement st;
 
 	
-	public static void init(){
+	public static void init(String[] cmdinput){
 
-		numberOfAttributes = 6;
- 		table = "fastfd";
+//		numberOfAttributes = Integer.parseInt(cmdinput[1]);                 
+ 		table = cmdinput[0];
 		attrStr = new Vector<String>(0);
 //		primaryKey = 0;
 //		lattice = new Vector<Integer>(0);
@@ -35,32 +35,6 @@ public class test {
 //		add_to_exist_time = new Integer(0);
 		query_time = new Integer(0);
 //		query_times = new Integer(0);
-		attrStr.addElement("A");
-		attrStr.addElement("B");
-		attrStr.addElement("C");
-		attrStr.addElement("D");
-		attrStr.addElement("E");
-		attrStr.addElement("F");
-		attrStr.addElement("G");
-		attrStr.addElement("H");
-		attrStr.addElement("I");
-		attrStr.addElement("J");
-		attrStr.addElement("K");
-		attrStr.addElement("L");
-		attrStr.addElement("M");
-		attrStr.addElement("N");
-		attrStr.addElement("O");
-		attrStr.addElement("P");
-		attrStr.addElement("Q");
-		attrStr.addElement("R");
-		attrStr.addElement("S");
-		attrStr.addElement("T");
-		attrStr.addElement("U");
-		attrStr.addElement("V");
-		attrStr.addElement("W");
-		attrStr.addElement("X");
-		attrStr.addElement("Y");
-		attrStr.addElement("Z");
 
 		try {
  
@@ -102,10 +76,10 @@ public class test {
 //					+ table
 //					+ "';
 			
-			String add_id = "alter table fastfd add id SERIAL";
+			String add_id = "alter table " + table + " add id SERIAL";
 			 
 			String inner_join = "CREATE VIEW joined AS "
-					+ "SELECT t1.id AS id, t1.a AS A1, t2.a AS A2, t1.b AS B1, t2.b AS B2, t1.c AS C1, t2.c AS C2, t1.d AS D1, t2.d AS D2, "
+					+ "SELECT row_number() OVER() AS id, t1.a AS A1, t2.a AS A2, t1.b AS B1, t2.b AS B2, t1.c AS C1, t2.c AS C2, t1.d AS D1, t2.d AS D2, "
 					+ "t1.e AS E1, t2.e AS E2, t1.f AS F1, t2.f AS F2 "
 					+ "FROM fastfd t1 "
 					+ "INNER JOIN fastfd t2 "
@@ -199,7 +173,7 @@ public class test {
 			System.out.println("Receiving diffsets: " + query_time);
 
 			
-			if(rs.next()){
+			while(rs.next()){
 			
 				Integer first = rs.getInt(1);
 			    String second = rs.getString(2);
@@ -218,7 +192,7 @@ public class test {
 	public static void main(String[] argv) {
   		long total = System.currentTimeMillis();
 
-		init();
+		init(argv);
 
 		get_diffset();
 		
