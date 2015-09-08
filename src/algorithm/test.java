@@ -158,44 +158,55 @@ public class test {
 			long start1 = System.currentTimeMillis();
 			Statement st1 = connection.createStatement();
 			st1.executeUpdate(add_id);
-			System.out.println(add_id);
+//			System.out.println(add_id);
 			System.out.println("ID column added");
 			query_time = query_time + (System.currentTimeMillis() - start1);
+			System.out.println("Adding key: " + query_time);
+			
 			
 			long start2 = System.currentTimeMillis();
 			Statement st2 = connection.createStatement();
 			st2.executeUpdate(inner_join);
-			System.out.println(inner_join);
+//			System.out.println(inner_join);
 			System.out.println("Joined view created");
 			query_time = query_time + (System.currentTimeMillis() - start2);
-			
+			System.out.println("Creating self-joined view: " + query_time);
+
+						
 			long start3 = System.currentTimeMillis();
 			Statement st3 = connection.createStatement();
 			st3.executeUpdate(diff_set);
-			System.out.println(diff_set);
+//			System.out.println(diff_set);
 			System.out.println("Differences spotted");
 			query_time = query_time + (System.currentTimeMillis() - start3);
+			System.out.println("Generating diffs: " + query_time);
+
 			
 			long start4 = System.currentTimeMillis();
 			Statement st4 = connection.createStatement();
 			st4.executeUpdate(diffset_output);
-			System.out.println(diffset_output);
+//			System.out.println(diffset_output);
 			System.out.println("Diffset view created");
 			query_time = query_time + (System.currentTimeMillis() - start4);
+			System.out.println("Aggregating diffsets: " + query_time);
+
 			
 			long start5 = System.currentTimeMillis();
 			Statement st5 = connection.createStatement();
 			ResultSet rs = st5.executeQuery(receive_diffset);
-			System.out.println(receive_diffset);
+			System.out.println("Diffset received!");
 			query_time = query_time + (System.currentTimeMillis() - start5);
+			System.out.println("Receiving diffsets: " + query_time);
+
 			
-//			if(rs.next()){
+			if(rs.next()){
 			
-//				Integer first = rs.getInt(1);
-//			    String second = rs.getString(2);
-			    
-			    
-//			}
+				Integer first = rs.getInt(1);
+			    String second = rs.getString(2);
+				System.out.println(first + " " + second);
+				
+			}
+			
 		} catch(SQLException e) {
 			System.out.println("Connection Failed! Check output console");
 			e.printStackTrace();
