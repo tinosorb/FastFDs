@@ -123,7 +123,45 @@ public class test {
 					+ "SELECT id, f1, f2 FROM joined " 
 					+ "WHERE f1 <> f2 "
 					+ ") AS Diffs";
-					
+		
+                        String  diff_set_alt = "SELECT id, 'a' AS Diff "
+                                        + "FROM ( "
+                                        + "SELECT id, a1, a2 FROM joined "
+                                        + "WHERE a1 <> a2 "
+                                        + ") AS Diffs "
+                                        + "UNION "
+                                        + "SELECT id, 'b' AS Diff "
+                                        + "FROM ( "
+                                        + "SELECT id, b1, b2 FROM joined "
+                                        + "WHERE b1 <> b2 "
+                                        + ") AS Diffs "
+                                        + "UNION "
+                                        + "SELECT id, 'c' AS Diff "
+                                        + "FROM ( "
+                                        + "SELECT id, c1, c2 FROM joined "
+                                        + "WHERE c1 <> c2 "
+                                        + ") AS Diffs "
+                                        + "UNION "
+                                        + "SELECT id, 'd' AS Diff "
+                                        + "FROM ( "
+                                        + "SELECT id, d1, d2 FROM joined "
+                                        + "WHERE d1 <> d2 "
+                                        + ") AS Diffs "
+                                        + "UNION "
+                                        + "SELECT id, 'e' AS Diff "
+                                        + "FROM ( "
+                                        + "SELECT id, e1, e2 FROM joined "
+                                        + "WHERE e1 <> e2 "
+                                        + ") AS Diffs "
+                                        + "UNION "
+                                        + "SELECT id, 'f' AS Diff "
+                                        + "FROM ( "
+                                        + "SELECT id, f1, f2 FROM joined "
+                                        + "WHERE f1 <> f2 "
+                                        + ") AS Diffs";
+
+
+			
 			String diffset_output = "SELECT id, array_agg(diff) AS DifferenceSets "
 					+ "FROM diffset "
 					+ "GROUP BY id";
@@ -154,25 +192,25 @@ public class test {
 			query_time = query_time + subquery_time;
 			System.out.println("Creating self-joined view: " + subquery_time);
 
-						
-			long start3 = System.currentTimeMillis();
-			Statement st3 = connection.createStatement();
-			st3.executeUpdate(diff_set);
-//			System.out.println(diff_set);
-			System.out.println("Differences spotted");
-			subquery_time = System.currentTimeMillis() - start3;
-			query_time = query_time + subquery_time;
-			System.out.println("Generating diffs: " + subquery_time);
-
-			
-			long start4 = System.currentTimeMillis();
-			Statement st4 = connection.createStatement();
-			ResultSet rs = st4.executeQuery(diffset_output_alt);
+                       
+                        long start3 = System.currentTimeMillis();
+                        Statement st3 = connection.createStatement();
+//                      st3.executeUpdate(diff_set);
+                        ResultSet rs = st3.executeQuery(diff_set_alt);
+                        System.out.println("Differences spotted");
+                        subquery_time = System.currentTimeMillis() - start3;
+                        query_time = query_time + subquery_time;
+                        System.out.println("Generating diffs: " + subquery_time);
+		
+	
+//			long start4 = System.currentTimeMillis();
+//			Statement st4 = connection.createStatement();
+//			ResultSet rs = st4.executeQuery(diffset_output_alt);
 //			System.out.println(diffset_output);
-			System.out.println("Diffset view created and received!");
-			subquery_time = System.currentTimeMillis() - start4;
-			query_time = query_time + subquery_time;
-			System.out.println("Creating and aggregating diffsets: " + subquery_time);
+//			System.out.println("Diffset view created and received!");
+//			subquery_time = System.currentTimeMillis() - start4;
+//			query_time = query_time + subquery_time;
+//			System.out.println("Creating and aggregating diffsets: " + subquery_time);
 
 			
 //			long start5 = System.currentTimeMillis();
@@ -183,19 +221,19 @@ public class test {
 //			System.out.println("Receiving diffsets: " + query_time);
 
 			
-			while(rs.next()){
+//			while(rs.next()){
 			
-				Integer first = rs.getInt(1);
-			    String second = rs.getString(2);
-				System.out.println(first + " " + second);
+//				Integer first = rs.getInt(1);
+//			    String second = rs.getString(2);
+//				System.out.println(first + " " + second);
 				
-			}
+//			}
 		
             rs.close();
             st1.close();
             st2.close();   
             st3.close();
-            st4.close();
+//          st4.close();
 
 
 		} catch(SQLException e) {
