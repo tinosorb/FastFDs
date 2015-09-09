@@ -1,4 +1,4 @@
-package algorithm;
+//package algorithm;
 
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -180,7 +180,14 @@ public class test {
 				System.out.println(first + " " + second);
 				
 			}
-			
+		
+                        rs.close();
+                        st1.close();
+                        st2.close();  
+                        st3.close();
+	                st4.close();
+                        st5.close();
+
 		} catch(SQLException e) {
 			System.out.println("Connection Failed! Check output console");
 			e.printStackTrace();

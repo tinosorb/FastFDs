@@ -1,4 +1,4 @@
-package algorithm;
+//package algorithm;
 
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -42,7 +42,7 @@ public class testmonet {
 			
 		} catch (ClassNotFoundException e) {
  
-			System.out.println("Where is your PostgreSQL JDBC Driver? "
+			System.out.println("Where is your MonetDB JDBC Driver? "
 					+ "Include in your library path!");
 			e.printStackTrace();
 			return;
@@ -51,7 +51,7 @@ public class testmonet {
 
 		try {
 			connection = DriverManager.getConnection(
-					"jdbc:monetdb://localhost/tests", "monetdb", "monetdb");
+					"jdbc:monetdb://localhost:54321/tests", "monetdb", "monetdb");
 //			connection = DriverManager.getConnection(
 //					"jdbc:postgresql://127.0.0.1:5432/postgres?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory", "postgres",
 //					"");
@@ -121,12 +121,12 @@ public class testmonet {
 					+ "WHERE f1 <> f2 "
 					+ ") AS Diffs";
 					
-			String diffset_output = "CREATE VIEW diffset_output AS "
-					+ "SELECT id, array_agg(diff) AS DifferenceSets "
-					+ "FROM diffset "
-					+ "GROUP BY id";
+//			String diffset_output = "CREATE VIEW diffset_output AS "
+//					+ "SELECT id, array_agg(diff) AS DifferenceSets "
+//					+ "FROM diffset "
+//					+ "GROUP BY id";
 			
-			String receive_diffset = "SELECT * FROM diffset_output";
+//			String receive_diffset = "SELECT * FROM diffset_output";
 			
 			long start1 = System.currentTimeMillis();
 			Statement st1 = connection.createStatement();
@@ -155,30 +155,30 @@ public class testmonet {
 			System.out.println("Generating diffs: " + query_time);
 
 			
-			long start4 = System.currentTimeMillis();
-			Statement st4 = connection.createStatement();
-			st4.executeUpdate(diffset_output);
+//			long start4 = System.currentTimeMillis();
+//			Statement st4 = connection.createStatement();
+//			st4.executeUpdate(diffset_output);
 //			System.out.println(diffset_output);
-			System.out.println("Diffset view created");
-			query_time = query_time + (System.currentTimeMillis() - start4);
-			System.out.println("Aggregating diffsets: " + query_time);
+//			System.out.println("Diffset view created");
+//			query_time = query_time + (System.currentTimeMillis() - start4);
+//			System.out.println("Aggregating diffsets: " + query_time);
 
 			
-			long start5 = System.currentTimeMillis();
-			Statement st5 = connection.createStatement();
-			ResultSet rs = st5.executeQuery(receive_diffset);
-			System.out.println("Diffset received!");
-			query_time = query_time + (System.currentTimeMillis() - start5);
-			System.out.println("Receiving diffsets: " + query_time);
+//			long start5 = System.currentTimeMillis();
+//			Statement st5 = connection.createStatement();
+//			ResultSet rs = st5.executeQuery(receive_diffset);
+//			System.out.println("Diffset received!");
+//			query_time = query_time + (System.currentTimeMillis() - start5);
+//			System.out.println("Receiving diffsets: " + query_time);
 
 			
-			while(rs.next()){
+//			while(rs.next()){
 			
-				Integer first = rs.getInt(1);
-			    String second = rs.getString(2);
-				System.out.println(first + " " + second);
+//				Integer first = rs.getInt(1);
+//			    String second = rs.getString(2);
+//				System.out.println(first + " " + second);
 				
-			}
+//			}
 			
 		} catch(SQLException e) {
 			System.out.println("Connection Failed! Check output console");
