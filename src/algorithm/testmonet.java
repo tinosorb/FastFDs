@@ -1,8 +1,5 @@
 //package algorithm;
 
-import java.sql.DriverManager;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +17,7 @@ public class testmonet {
 	private static long query_time;
 	private static Vector<String> attrStr;
 	private static Statement st;
-
+	private static long subquery_time;
 	
 	public static void init(String[] cmdinput){
 
@@ -34,6 +31,7 @@ public class testmonet {
 //		check_subset_time = new Integer(0);
 //		add_to_exist_time = new Integer(0);
 		query_time = new Integer(0);
+		subquery_time = new Integer(0);
 //		query_times = new Integer(0);
 
 		try {
@@ -121,10 +119,14 @@ public class testmonet {
 					+ "WHERE f1 <> f2 "
 					+ ") AS Diffs";
 					
-//			String diffset_output = "CREATE VIEW diffset_output AS "
-//					+ "SELECT id, array_agg(diff) AS DifferenceSets "
-//					+ "FROM diffset "
-//					+ "GROUP BY id";
+			String diffset_output = "SELECT id, array_agg(diff) AS DifferenceSets "
+					+ "FROM diffset "
+					+ "GROUP BY id";
+			
+			String diffset_output_alt = "select t.id as id, array(select diff from diffset as c "
+					+ "where c.id = t.id) as diffs "
+					+ "from diffset as t "
+					+ "group by t.id";
 			
 //			String receive_diffset = "SELECT * FROM diffset_output";
 			
@@ -133,8 +135,9 @@ public class testmonet {
 			st1.executeUpdate(add_id);
 //			System.out.println(add_id);
 			System.out.println("ID column added");
-			query_time = query_time + (System.currentTimeMillis() - start1);
-			System.out.println("Adding key: " + query_time);
+			subquery_time = System.currentTimeMillis() - start1;
+			query_time = query_time + subquery_time;
+			System.out.println("Adding key: " + subquery_time);
 			
 			
 			long start2 = System.currentTimeMillis();
@@ -142,8 +145,9 @@ public class testmonet {
 			st2.executeUpdate(inner_join);
 //			System.out.println(inner_join);
 			System.out.println("Joined view created");
-			query_time = query_time + (System.currentTimeMillis() - start2);
-			System.out.println("Creating self-joined view: " + query_time);
+			subquery_time = System.currentTimeMillis() - start2;
+			query_time = query_time + subquery_time;
+			System.out.println("Creating self-joined view: " + subquery_time);
 
 						
 			long start3 = System.currentTimeMillis();
@@ -151,17 +155,19 @@ public class testmonet {
 			st3.executeUpdate(diff_set);
 //			System.out.println(diff_set);
 			System.out.println("Differences spotted");
-			query_time = query_time + (System.currentTimeMillis() - start3);
-			System.out.println("Generating diffs: " + query_time);
+			subquery_time = System.currentTimeMillis() - start3;
+			query_time = query_time + subquery_time;
+			System.out.println("Generating diffs: " + subquery_time);
 
 			
-//			long start4 = System.currentTimeMillis();
-//			Statement st4 = connection.createStatement();
-//			st4.executeUpdate(diffset_output);
+			long start4 = System.currentTimeMillis();
+			Statement st4 = connection.createStatement();
+			ResultSet rs = st4.executeQuery(diffset_output_alt);
 //			System.out.println(diffset_output);
-//			System.out.println("Diffset view created");
-//			query_time = query_time + (System.currentTimeMillis() - start4);
-//			System.out.println("Aggregating diffsets: " + query_time);
+			System.out.println("Diffset view created and received!");
+			subquery_time = System.currentTimeMillis() - start4;
+			query_time = query_time + subquery_time;
+			System.out.println("Creating and aggregating diffsets: " + subquery_time);
 
 			
 //			long start5 = System.currentTimeMillis();
@@ -172,13 +178,13 @@ public class testmonet {
 //			System.out.println("Receiving diffsets: " + query_time);
 
 			
-//			while(rs.next()){
+			while(rs.next()){
 			
-//				Integer first = rs.getInt(1);
-//			    String second = rs.getString(2);
-//				System.out.println(first + " " + second);
+				Integer first = rs.getInt(1);
+			    String second = rs.getString(2);
+				System.out.println(first + " " + second);
 				
-//			}
+			}
 			
 		} catch(SQLException e) {
 			System.out.println("Connection Failed! Check output console");
