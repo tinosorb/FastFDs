@@ -167,7 +167,7 @@ public class test {
 			
 			long start4 = System.currentTimeMillis();
 			Statement st4 = connection.createStatement();
-			ResultSet rs = st4.executeQuery(diffset_output);
+			ResultSet rs = st4.executeQuery(diffset_output_alt);
 //			System.out.println(diffset_output);
 			System.out.println("Diffset view created and received!");
 			subquery_time = System.currentTimeMillis() - start4;
