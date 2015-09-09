@@ -18,6 +18,7 @@ public class test {
 	private static Integer numberOfAttributes;
 	private static String table;
 	private static long query_time;
+	private static long subquery_time;
 	private static Vector<String> attrStr;
 	private static Statement st;
 
@@ -34,6 +35,7 @@ public class test {
 //		check_subset_time = new Integer(0);
 //		add_to_exist_time = new Integer(0);
 		query_time = new Integer(0);
+		subquery_time = new Integer(0);
 //		query_times = new Integer(0);
 
 		try {
@@ -122,20 +124,25 @@ public class test {
 					+ "WHERE f1 <> f2 "
 					+ ") AS Diffs";
 					
-			String diffset_output = "CREATE VIEW diffset_output AS "
-					+ "SELECT id, array_agg(diff) AS DifferenceSets "
+			String diffset_output = "SELECT id, array_agg(diff) AS DifferenceSets "
 					+ "FROM diffset "
 					+ "GROUP BY id";
 			
-			String receive_diffset = "SELECT * FROM diffset_output";
+			String diffset_output_alt = "select t.id as id, array(select diff from diffset as c "
+					+ "where c.id = t.id) as diffs "
+					+ "from diffset as t "
+					+ "group by t.id";
+			
+//			String receive_diffset = "SELECT * FROM diffset_output";
 			
 			long start1 = System.currentTimeMillis();
 			Statement st1 = connection.createStatement();
 			st1.executeUpdate(add_id);
 //			System.out.println(add_id);
 			System.out.println("ID column added");
-			query_time = query_time + (System.currentTimeMillis() - start1);
-			System.out.println("Adding key: " + query_time);
+			subquery_time = System.currentTimeMillis() - start1;
+			query_time = query_time + subquery_time;
+			System.out.println("Adding key: " + subquery_time);
 			
 			
 			long start2 = System.currentTimeMillis();
@@ -143,8 +150,9 @@ public class test {
 			st2.executeUpdate(inner_join);
 //			System.out.println(inner_join);
 			System.out.println("Joined view created");
-			query_time = query_time + (System.currentTimeMillis() - start2);
-			System.out.println("Creating self-joined view: " + query_time);
+			subquery_time = System.currentTimeMillis() - start2;
+			query_time = query_time + subquery_time;
+			System.out.println("Creating self-joined view: " + subquery_time);
 
 						
 			long start3 = System.currentTimeMillis();
@@ -152,25 +160,27 @@ public class test {
 			st3.executeUpdate(diff_set);
 //			System.out.println(diff_set);
 			System.out.println("Differences spotted");
-			query_time = query_time + (System.currentTimeMillis() - start3);
-			System.out.println("Generating diffs: " + query_time);
+			subquery_time = System.currentTimeMillis() - start3;
+			query_time = query_time + subquery_time;
+			System.out.println("Generating diffs: " + subquery_time);
 
 			
 			long start4 = System.currentTimeMillis();
 			Statement st4 = connection.createStatement();
-			st4.executeUpdate(diffset_output);
+			ResultSet rs = st4.executeQuery(diffset_output);
 //			System.out.println(diffset_output);
-			System.out.println("Diffset view created");
-			query_time = query_time + (System.currentTimeMillis() - start4);
-			System.out.println("Aggregating diffsets: " + query_time);
+			System.out.println("Diffset view created and received!");
+			subquery_time = System.currentTimeMillis() - start4;
+			query_time = query_time + subquery_time;
+			System.out.println("Creating and aggregating diffsets: " + subquery_time);
 
 			
-			long start5 = System.currentTimeMillis();
-			Statement st5 = connection.createStatement();
-			ResultSet rs = st5.executeQuery(receive_diffset);
-			System.out.println("Diffset received!");
-			query_time = query_time + (System.currentTimeMillis() - start5);
-			System.out.println("Receiving diffsets: " + query_time);
+//			long start5 = System.currentTimeMillis();
+//			Statement st5 = connection.createStatement();
+//			ResultSet rs = st5.executeQuery(receive_diffset);
+//			System.out.println("Diffset received!");
+//			query_time = query_time + (System.currentTimeMillis() - start5);
+//			System.out.println("Receiving diffsets: " + query_time);
 
 			
 			while(rs.next()){
@@ -181,12 +191,12 @@ public class test {
 				
 			}
 		
-                        rs.close();
-                        st1.close();
-                        st2.close();  
-                        st3.close();
-	                st4.close();
-                        st5.close();
+            rs.close();
+            st1.close();
+            st2.close();   
+            st3.close();
+            st4.close();
+
 
 		} catch(SQLException e) {
 			System.out.println("Connection Failed! Check output console");
