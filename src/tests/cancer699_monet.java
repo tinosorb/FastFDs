@@ -149,41 +149,71 @@ public class cancer699_monet {
 					+ "WHERE k1 <> k2 "
 					+ ") AS Diffs";
 
-			String  diff_set_alt = "SELECT id, 'a' AS Diff "
-                                        + "FROM ( "
-                                        + "SELECT id, a1, a2 FROM joined "
-                                        + "WHERE a1 <> a2 "
-                                        + ") AS Diffs "
-                                        + "UNION "
-                                        + "SELECT id, 'b' AS Diff "
-                                        + "FROM ( "
-                                        + "SELECT id, b1, b2 FROM joined "
-                                        + "WHERE b1 <> b2 "
-                                        + ") AS Diffs "
-                                        + "UNION "
-                                        + "SELECT id, 'c' AS Diff "
-                                        + "FROM ( "
-                                        + "SELECT id, c1, c2 FROM joined "
-                                        + "WHERE c1 <> c2 "
-                                        + ") AS Diffs "
-                                        + "UNION "
-                                        + "SELECT id, 'd' AS Diff "
-                                        + "FROM ( "
-                                        + "SELECT id, d1, d2 FROM joined "
-                                        + "WHERE d1 <> d2 "
-                                        + ") AS Diffs "
-                                        + "UNION "
-                                        + "SELECT id, 'e' AS Diff "
-                                        + "FROM ( "
-                                        + "SELECT id, e1, e2 FROM joined "
-                                        + "WHERE e1 <> e2 "
-                                        + ") AS Diffs "
-                                        + "UNION "
-                                        + "SELECT id, 'f' AS Diff "
-                                        + "FROM ( "
-                                        + "SELECT id, f1, f2 FROM joined "
-                                        + "WHERE f1 <> f2 "
-                                        + ") AS Diffs";
+            String  diff_set_alt = "SELECT id, 'a' AS Diff "
+                    + "FROM ( "
+                    + "SELECT id, a1, a2 FROM joined "
+                    + "WHERE a1 <> a2 "
+                    + ") AS Diffs "
+                    + "UNION "
+                    + "SELECT id, 'b' AS Diff "
+                    + "FROM ( "
+                    + "SELECT id, b1, b2 FROM joined "
+                    + "WHERE b1 <> b2 "
+                    + ") AS Diffs "
+                    + "UNION "
+                    + "SELECT id, 'c' AS Diff "
+                    + "FROM ( "
+                    + "SELECT id, c1, c2 FROM joined "
+                    + "WHERE c1 <> c2 "
+                    + ") AS Diffs "
+                    + "UNION "
+                    + "SELECT id, 'd' AS Diff "
+                    + "FROM ( "
+                    + "SELECT id, d1, d2 FROM joined "
+                    + "WHERE d1 <> d2 "
+                    + ") AS Diffs "
+                    + "UNION "
+                    + "SELECT id, 'e' AS Diff "
+                    + "FROM ( "
+                    + "SELECT id, e1, e2 FROM joined "
+                    + "WHERE e1 <> e2 "
+                    + ") AS Diffs "
+                    + "UNION "
+                    + "SELECT id, 'f' AS Diff "
+                    + "FROM ( "
+                    + "SELECT id, f1, f2 FROM joined "
+                    + "WHERE f1 <> f2 "
+                    + ") AS Diffs "
+                    + "UNION "
+                    + "SELECT id, 'g' AS Diff "
+                    + "FROM ( "
+                    + "SELECT id, g1, g2 FROM joined "
+                    + "WHERE g1 <> g2 "
+                    + ") AS Diffs "
+                    + "UNION "
+                    + "SELECT id, 'h' AS Diff "
+                    + "FROM ( "
+                    + "SELECT id, h1, h2 FROM joined "
+                    + "WHERE h1 <> h2 "
+                    + ") AS Diffs "
+                    + "UNION "
+                    + "SELECT id, 'i' AS Diff "
+                    + "FROM ( "
+                    + "SELECT id, i1, i2 FROM joined "
+                    + "WHERE i1 <> i2 "
+                    + ") AS Diffs "
+                    + "UNION "
+                    + "SELECT id, 'j' AS Diff "
+                    + "FROM ( "
+                    + "SELECT id, j1, j2 FROM joined "
+                    + "WHERE j1 <> j2 "
+                    + ") AS Diffs "
+                    + "UNION "
+                    + "SELECT id, 'k' AS Diff "
+                    + "FROM ( "
+                    + "SELECT id, k1, k2 FROM joined "
+                    + "WHERE k1 <> k2 "
+                    + ") AS Diffs";
 
 
 			String diffset_output = "SELECT id, array_agg(diff) AS DifferenceSets "
@@ -219,8 +249,8 @@ public class cancer699_monet {
 						
 			long start3 = System.currentTimeMillis();
 			Statement st3 = connection.createStatement();
-			st3.executeUpdate(diff_set);
-//            ResultSet rs = st3.executeQuery(diff_set_alt);
+//			st3.executeUpdate(diff_set);
+            ResultSet rs = st3.executeQuery(diff_set_alt);
 			System.out.println("Differences spotted");
 			subquery_time = System.currentTimeMillis() - start3;
 			query_time = query_time + subquery_time;
@@ -253,7 +283,7 @@ public class cancer699_monet {
 				
 //			}
 			
-//          rs.close();
+            rs.close();
             st1.close();
             st2.close();   
             st3.close();
