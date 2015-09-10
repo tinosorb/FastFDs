@@ -78,8 +78,8 @@ public class iris_monet {
 			String inner_join = "CREATE VIEW joined AS "
 					+ "SELECT row_number() OVER() AS id, t1.a AS A1, t2.a AS A2, t1.b AS B1, t2.b AS B2, t1.c AS C1, t2.c AS C2, t1.d AS D1, t2.d AS D2, "
 					+ "t1.e AS E1, t2.e AS E2 "
-					+ "FROM fastfd t1 "
-					+ "INNER JOIN fastfd t2 "
+					+ "FROM "+ table +" t1 "
+					+ "INNER JOIN "+ table +" t2 "
 					+ "ON t1.id <t2.id";
 			
 			String diff_set = "CREATE VIEW diffset AS "
