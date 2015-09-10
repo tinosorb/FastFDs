@@ -83,10 +83,10 @@ public class cancer699_pg {
 			String inner_join = "CREATE VIEW joined AS "
 					+ "SELECT row_number() OVER() AS id, t1.a AS A1, t2.a AS A2, t1.b AS B1, t2.b AS B2, t1.c AS C1, t2.c AS C2, t1.d AS D1, t2.d AS D2, "
 					+ "t1.e AS E1, t2.e AS E2, t1.f AS F1, t2.f AS F2, t1.g AS G1, t2.g AS G2, t1.h AS H1, t2.h AS H2, t1.i AS I1, t2.i AS I2, t1.j AS J1, t2.j AS J2, t1.k AS K1, t2.k AS K2 "
-					+ "FROM cancer111 t1 "
-					+ "INNER JOIN cancer111 t2 "
-					+ "ON t1.id <t2.id";
-			
+				     	+ "FROM "+ table +" t1 "
+                                	+ "INNER JOIN "+ table +" t2 "
+					+ "ON t1.id <t2.id";		
+	
 			String diff_set = "CREATE VIEW diffset AS "
 					+ "SELECT id, 'a' AS Diff "
 					+ "FROM ( "
@@ -192,6 +192,36 @@ public class cancer699_pg {
                                         + "FROM ( "
                                         + "SELECT id, f1, f2 FROM joined "
                                         + "WHERE f1 <> f2 "
+                                        + ") AS Diffs "
+                                        + "UNION "
+                                        + "SELECT id, 'g' AS Diff "
+                                        + "FROM ( "
+                                        + "SELECT id, g1, g2 FROM joined "
+                                        + "WHERE g1 <> g2 "
+                                        + ") AS Diffs "
+                                        + "UNION "
+                                        + "SELECT id, 'h' AS Diff "
+                                        + "FROM ( "
+                                        + "SELECT id, h1, h2 FROM joined "
+                                        + "WHERE h1 <> h2 "
+                                        + ") AS Diffs "
+                                        + "UNION "
+                                        + "SELECT id, 'i' AS Diff "
+                                        + "FROM ( "
+                                        + "SELECT id, i1, i2 FROM joined "
+                                        + "WHERE i1 <> i2 "
+                                        + ") AS Diffs "
+                                        + "UNION "
+                                        + "SELECT id, 'j' AS Diff "
+                                        + "FROM ( "
+                                        + "SELECT id, j1, j2 FROM joined "
+                                        + "WHERE j1 <> j2 "
+                                        + ") AS Diffs "
+                                        + "UNION "
+                                        + "SELECT id, 'k' AS Diff "
+                                        + "FROM ( "
+                                        + "SELECT id, k1, k2 FROM joined "
+                                        + "WHERE k1 <> k2 "
                                         + ") AS Diffs";
 
 
@@ -221,7 +251,7 @@ public class cancer699_pg {
 			Statement st2 = connection.createStatement();
 			st2.executeUpdate(inner_join);
 //			System.out.println(inner_join);
-			System.out.println("Joined view created");
+			System.out.println("Joined view created for" + table);
 			subquery_time = System.currentTimeMillis() - start2;
 			query_time = query_time + subquery_time;
 			System.out.println("Creating self-joined view: " + subquery_time);
@@ -229,8 +259,8 @@ public class cancer699_pg {
                        
                         long start3 = System.currentTimeMillis();
                         Statement st3 = connection.createStatement();
-                        st3.executeUpdate(diff_set);
-//                       ResultSet rs = st3.executeQuery(diff_set_alt);
+//                        st3.executeUpdate(diff_set);
+                        ResultSet rs = st3.executeQuery(diff_set_alt);
                         System.out.println("Differences spotted");
                         subquery_time = System.currentTimeMillis() - start3;
                         query_time = query_time + subquery_time;
@@ -263,7 +293,7 @@ public class cancer699_pg {
 				
 //			}
 		
-//            rs.close();
+//           rs.close();
             st1.close();
             st2.close();   
             st3.close();
