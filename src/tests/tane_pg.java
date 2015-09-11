@@ -9,7 +9,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.ListIterator;
 
-public class second_optimization {
+public class tane_pg {
 
 	private static Vector<String> attrStr;
 	private static Vector<Integer> lattice;
@@ -372,7 +372,7 @@ public class second_optimization {
 
 		try {
 			connection = DriverManager.getConnection(
-					"jdbc:postgresql://127.0.0.1:5432/zhangshuopeng", "zhangshuopeng",
+					"jdbc:postgresql://localhost:5432/postgres", "postgres",
 					"");
  			connection.setAutoCommit(false);
  			st = connection.createStatement();

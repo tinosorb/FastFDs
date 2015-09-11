@@ -252,6 +252,8 @@ public class cancer699_pg {
             long start3 = System.currentTimeMillis();
             Statement st3 = connection.createStatement();
 //                        st3.executeUpdate(diff_set);
+            connection.setAutoCommit(false);
+            st3.setFetchSize(50);
             ResultSet rs = st3.executeQuery(diff_set_alt);
             System.out.println("Differences spotted");
             subquery_time = System.currentTimeMillis() - start3;

@@ -332,7 +332,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.ListIterator;
 
-public class second_optimization {
+public class tane_monet {
 
 	private static Vector<String> attrStr;
 	private static Vector<Integer> lattice;
@@ -695,7 +695,7 @@ public class second_optimization {
 
 		try {
 			connection = DriverManager.getConnection(
-					"jdbc:monetdb://localhost:54321/my_first_db", "monetdb",
+					"jdbc:monetdb://localhost:54321/tests", "monetdb",
 					"monetdb");
 			connection.setAutoCommit(false);
 			st = connection.createStatement();
