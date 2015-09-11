@@ -293,7 +293,7 @@ public class cancer699_pg {
 				
 //			}
 		
-//           rs.close();
+            rs.close();
             st1.close();
             st2.close();   
             st3.close();
