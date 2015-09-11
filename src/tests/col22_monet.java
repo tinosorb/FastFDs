@@ -10,15 +10,14 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.ListIterator;
 
-public class cancer699_pg {
+public class col22_monet {
 	private static Connection connection;
 	private static Integer numberOfAttributes;
 	private static String table;
 	private static long query_time;
-	private static long subquery_time;
 	private static Vector<String> attrStr;
 	private static Statement st;
-
+	private static long subquery_time;
 	
 	public static void init(String[] cmdinput){
 
@@ -37,11 +36,11 @@ public class cancer699_pg {
 
 		try {
  
-			Class.forName("org.postgresql.Driver");
- 
+			Class.forName("nl.cwi.monetdb.jdbc.MonetDriver");
+			
 		} catch (ClassNotFoundException e) {
  
-			System.out.println("Where is your PostgreSQL JDBC Driver? "
+			System.out.println("Where is your MonetDB JDBC Driver? "
 					+ "Include in your library path!");
 			e.printStackTrace();
 			return;
@@ -50,8 +49,7 @@ public class cancer699_pg {
 
 		try {
 			connection = DriverManager.getConnection(
-					"jdbc:postgresql://localhost:5432/postgres", "postgres",
-					"");
+					"jdbc:monetdb://localhost:54321/tests", "monetdb", "monetdb");
 //			connection = DriverManager.getConnection(
 //					"jdbc:postgresql://127.0.0.1:5432/postgres?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory", "postgres",
 //					"");
@@ -81,11 +79,11 @@ public class cancer699_pg {
 					+ "SELECT row_number() OVER() AS id, t1.a AS A1, t2.a AS A2, t1.b AS B1, t2.b AS B2, t1.c AS C1, t2.c AS C2, t1.d AS D1, t2.d AS D2, "
 					+ "t1.e AS E1, t2.e AS E2, t1.f AS F1, t2.f AS F2, t1.g AS G1, t2.g AS G2, t1.h AS H1, t2.h AS H2, t1.i AS I1, t2.i AS I2, t1.j AS J1, t2.j AS J2, t1.k AS K1, t2.k AS K2, "
 					+ "t1.l AS L1, t2.l AS L2, t1.m AS M1, t2.m AS M2, t1.n AS N1, t2.n AS N2, t1.o AS O1, t2.o AS O2, "
-					+ "t1.p AS P1, t2.p AS P2, t1.q AS Q1, t2.q AS Q2, t1.r AS R1, t2.r AS R2, t1.s AS S1, t2.s AS S2, t1.t AS T1, t2.t AS T2, t1.u AS U1, t2.u AS U2, t1.v AS V1, t2.v AS V2, "
+					+ "t1.p AS P1, t2.p AS P2, t1.q AS Q1, t2.q AS Q2, t1.r AS R1, t2.r AS R2, t1.s AS S1, t2.s AS S2, t1.t AS T1, t2.t AS T2, t1.u AS U1, t2.u AS U2, t1.v AS V1, t2.v AS V2 "
 				    + "FROM "+ table +" t1 "
                         + "INNER JOIN "+ table +" t2 "
-					+ "ON t1.id <t2.id";		
-	
+					+ "ON t1.id <t2.id";
+			
 			String diff_set = "CREATE VIEW diffset AS "
 					+ "SELECT id, 'a' AS Diff "
 					+ "FROM ( "
@@ -218,6 +216,7 @@ public class cancer699_pg {
                     + "SELECT id, k1, k2 FROM joined "
                     + "WHERE k1 <> k2 "
                     + ") AS Diffs "
+                    + "UNION "
                     + "SELECT id, 'l' AS Diff "
 					+ "FROM ( "
 					+ "SELECT id, l1, l2 FROM joined "
@@ -284,7 +283,7 @@ public class cancer699_pg {
 					+ "WHERE v1 <> v2 "
 					+ ") AS Diffs";
 
-			
+
 			String diffset_output = "SELECT id, array_agg(diff) AS DifferenceSets "
 					+ "FROM diffset "
 					+ "GROUP BY id";
@@ -310,24 +309,22 @@ public class cancer699_pg {
 			Statement st2 = connection.createStatement();
 			st2.executeUpdate(inner_join);
 //			System.out.println(inner_join);
-			System.out.println("Joined view created for " + table);
+			System.out.println("Joined view created");
 			subquery_time = System.currentTimeMillis() - start2;
 			query_time = query_time + subquery_time;
 			System.out.println("Creating self-joined view: " + subquery_time);
 
-                       
-            long start3 = System.currentTimeMillis();
-            Statement st3 = connection.createStatement();
-//                        st3.executeUpdate(diff_set);
-            connection.setAutoCommit(false);
-            st3.setFetchSize(50);
+						
+			long start3 = System.currentTimeMillis();
+			Statement st3 = connection.createStatement();
+//			st3.executeUpdate(diff_set);
             ResultSet rs = st3.executeQuery(diff_set_alt);
-            System.out.println("Differences spotted");
-            subquery_time = System.currentTimeMillis() - start3;
-            query_time = query_time + subquery_time;
-            System.out.println("Generating diffs: " + subquery_time);
-		
-	
+			System.out.println("Differences spotted");
+			subquery_time = System.currentTimeMillis() - start3;
+			query_time = query_time + subquery_time;
+			System.out.println("Generating diffs: " + subquery_time);
+
+			
 //			long start4 = System.currentTimeMillis();
 //			Statement st4 = connection.createStatement();
 //			ResultSet rs = st4.executeQuery(diffset_output_alt);
@@ -353,14 +350,13 @@ public class cancer699_pg {
 //				System.out.println(first + " " + second);
 				
 //			}
-		
+			
             rs.close();
             st1.close();
             st2.close();   
             st3.close();
-//          st4.close();
-
-
+			
+			
 		} catch(SQLException e) {
 			System.out.println("Connection Failed! Check output console");
 			e.printStackTrace();
