@@ -10,7 +10,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.ListIterator;
 
-public class col22_monet {
+public class col44_monet {
 	private static Connection connection;
 	private static Integer numberOfAttributes;
 	private static String table;
@@ -80,7 +80,7 @@ public class col22_monet {
 					+ "t1.e AS E1, t2.e AS E2, t1.f AS F1, t2.f AS F2, t1.g AS G1, t2.g AS G2, t1.h AS H1, t2.h AS H2, t1.i AS I1, t2.i AS I2, t1.j AS J1, t2.j AS J2, t1.k AS K1, t2.k AS K2, "
 					+ "t1.l AS L1, t2.l AS L2, t1.m AS M1, t2.m AS M2, t1.n AS N1, t2.n AS N2, t1.o AS O1, t2.o AS O2, "
 					+ "t1.p AS P1, t2.p AS P2, t1.q AS Q1, t2.q AS Q2, t1.r AS R1, t2.r AS R2, t1.s AS S1, t2.s AS S2, t1.t AS T1, t2.t AS T2, t1.u AS U1, t2.u AS U2, t1.v AS V1, t2.v AS V2, "
-					+ "t1.w AS w1, t2.w AS w2, t1.x AS x1, t2.x AS x2, t1.y AS y1, t2.y AS y2, t1.z AS z1, t2.z AS z2, t1.aa AS aa1, t2.ab AS ab2, "
+					+ "t1.w AS w1, t2.w AS w2, t1.x AS x1, t2.x AS x2, t1.y AS y1, t2.y AS y2, t1.z AS z1, t2.z AS z2, t1.aa AS aa1, t2.aa AS aa2, t1.ab AS ab1, t2.ab AS ab2, "
 					+ "t1.ac AS ac1, t2.ac AS ac2, t1.ad AS ad1, t2.ad AS ad2, t1.ae AS ae1, t2.ae AS ae2, t1.af AS af1, t2.af AS af2, t1.ag AS ag1, t2.ag AS ag2, t1.ah AS ah1, t2.ah AS ah2, t1.ai AS ai1, t2.ai AS ai2, "
 					+ "t1.aj AS aj1, t2.aj AS aj2, t1.ak AS ak1, t2.ak AS ak2, t1.al AS al1, t2.al AS al2, t1.am AS am1, t2.am AS am2, "
 					+ "t1.an AS an1, t2.an AS an2, t1.ao AS ao1, t2.ao AS ao2, t1.ap AS ap1, t2.ap AS ap2, t1.aq AS aq1, t2.aq AS aq2, t1.ar AS ar1, t2.ar AS ar2 "
