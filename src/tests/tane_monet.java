@@ -569,6 +569,7 @@ public class tane_monet {
 
 			st = connection.createStatement();
 			statement_time = statement_time + (System.currentTimeMillis() - start);
+            st.setFetchSize(50);
 
 			ResultSet rs = st.executeQuery(query);
 
