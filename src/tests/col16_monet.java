@@ -10,7 +10,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.ListIterator;
 
-public class col22_monet {
+public class col16_monet {
 	private static Connection connection;
 	private static Integer numberOfAttributes;
 	private static String table;
